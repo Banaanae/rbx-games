@@ -1,3 +1,4 @@
+---@diagnostic disable: deprecated, undefined-global
 getgenv().spamJobs = false
 getgenv().spamHorn = false
 getgenv().floodSupplier = false
@@ -35,8 +36,21 @@ window:Toggle("Car Alarm",{location = Table, flag = "hornToggle"},function()
 	end
 end)
 
-window:Dropdown("Select Job",{location = Table, flag = "job", search = true, list = {"Cashier","Cook","Pizza Boxer","Delivery","Supplier","On Break"}},function()
-	if (Table["job"] == "Cashier") then
+window:Toggle("Flood Supplier",{location = Table, flag = "floodingToggle"},function()
+	floodSupplier = Table["floodingToggle"]
+end)
+
+window:Toggle("Spam Ovens",{location = Table, flag = "ovenToggle"},function()
+	spamOvens = Table["ovenToggle"]
+end)
+
+window:Dropdown("Select Job",{location = Table, flag = "job", search = true, list = {"Manager","Cashier","Cook","Pizza Boxer","Delivery","Supplier","On Break"}},function()
+	if Table["job"] == "Manager" then
+		print("Manager Job code here")
+		--[[
+		workspace.Cars.Car.LeftDoor.ClickDetector.Detector:FireServer()
+		]]
+	elseif (Table["job"] == "Cashier") then
 		HumanoidRootPart.CFrame = Workspace.JobButtons["Cashier"].CFrame
 	elseif Table["job"] == "Cook" then
 		HumanoidRootPart.CFrame = Workspace.JobButtons["Cook"].CFrame
@@ -116,3 +130,43 @@ spawn(function()
 		end
 	end
 end)
+
+spawn(function()
+	while wait() do
+		if floodSupplier == true then
+			print("FIRE THE TOUCH INTEREST")
+		end
+	end
+end)
+
+spawn(function()
+	while wait() do
+		if spamOvens == true then
+			print("FIRE THE TOUCH INTEREST")
+		end
+	end
+end)
+
+-- window:Button("Button",function()
+--    print("Nice")
+-- end)
+
+-- window:Slider("Slider",{location = Table, min = 1, max = 64, default = 32, precise = true --[[ 0.00 instead of 0 ]], flag = "Slider"},function()
+--    print(Table["Slider"])
+-- end)
+-- window:Dropdown("Dropdown",{location = Table,flag = "Dropdown",search = true --[[AddsSearchBar]], list = {"1","2","3","4","5","6","7","8","9","0"} --[[Wont work when PlayerList = true]], PlayerList = true --[[ Turns the list into the players in the server ]]},function()
+--    print(Table["Dropdown"])
+-- end)
+-- window:Bind("KeyBind",{location = Table, flag = "KeyBind", default = Enum.KeyCode.B},function() -- Automatically stops when the gui is removed
+--    print(Table["KeyBind"])
+-- end)
+-- window:Box("Box",{location = Table,flag = "Box", type = "number" --[[ Only Numbers automatically on false ]], hold = "Numbers" --[[ PlaceHolderText ]]},function()
+--    print(Table["Box"])
+-- end)
+-- window:Search(Color3.fromRGB(255,0,255) --[[nil = Yellow]]) -- Ez searcher for if you have a lot of things
+-- window:String({string = "String"})
+
+--[[
+	Rat
+	game:GetService("Workspace").HangGliderGamepass.ClickDetector
+]]
